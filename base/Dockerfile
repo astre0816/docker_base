@@ -12,9 +12,12 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN apt update && apt install -y \
         curl \
         git \
-        neovim \
+        nodejs \
+        npm \
         sudo \
         tzdata \
+        vim \
+        yarn \
     && rm -rf /var/lib/apt/lists/*
 
 # 一般ユーザーアカウント設定
