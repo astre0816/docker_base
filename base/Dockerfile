@@ -6,18 +6,23 @@ ENV DEBIAN_FRONTEND=noninteractive \
     USER=astre \
     PASS=astre \
     HOME=/home/astre \
-    SHELL=/bin/bash
+    SHELL=/bin/bash \
+    PATH=/home/astre/.yarn/bin:/home/astre/.config/yarn/global/node_modules/.bin:$PATH
 
 # パッケージのインストール
 RUN apt update && apt install -y \
         curl \
         git \
-        nodejs \
-        npm \
         sudo \
         tzdata \
         vim \
-        yarn \
+    && curl -SL https://deb.nodesource.com/setup_12.x | bash \
+    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt update && apt install -y \
+         nodejs \
+         yarn \
+    && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
 # 一般ユーザーアカウント設定
